@@ -10,22 +10,23 @@ public class HtmlValidator {
 
 		while (!tags.isEmpty()){
 
+			if(!tags.peek().isSelfClosing()){
 				if(tags.peek().isOpenTag()){
 					tags2.push(tags.remove());
 				}else{
-					if(tags.peek().isSelfClosing())
-						tags.remove();
-					else{
 						if(tags2.isEmpty())
 							return null;
-						if(tags.peek().matches(tags2.peek())){
+						if(tags.peek().matches(tags2.peek())) {
 							tags2.pop();
 							tags.remove();
 						}
 						else
 							return tags2;
 					}
-				}
+
+			}else{
+				tags.remove();
+			}
 		}
 
 
